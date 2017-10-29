@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MediaManager</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="application.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="blt">
+  <h6 class="blv">COOKWARE</h6>
+  <h2 class="blu">Media Manager</h2>
+</div>
+
+<div class="input-group input-group-lg" id="searchBar">
+  <input type="text" id="search" class="form-control" placeholder="Search for..." aria-describedby="sizing-addon1">
+  <span class="input-group-btn">
+    <button class="btn btn-default" onclick="doFunction();" type="button">Go!</button>
+  </span>
+</div>
+
+<div>
+  </div>
+    <div class="row" id="mediaPane">
+  </div>
+</div>
+
+
+<!-- <div class="container">
+      <h2>Image</h2>
+      <p>The .img-rounded class adds rounded corners to an image (not available in IE8):</p>
+      <img src="http://192.168.1.5:9001/image/1821429_Testing_Life_2014.jpg" class="img-rounded" alt="Cinque Terre" width="150" height="225">
+</div> -->
+
+
+
+<script>
+function sendRequest(){
+  alert("Alert");
+}
+</script>
+
+<script language=javascript>
+  function doFunction(){
+    var nameValue = document.getElementById("search").value;
+    // var url = "http://192.168.1.5:9001/echoGet"; // Bec's House
+    // var imageUrl = "http://192.168.1.5:9001/image/" // Bec's House
+    var url = "http://10.1.1.15:9001/echoGet"; // Home
+    var imageUrl = "http://10.1.1.15:9001/image/" // Home
+    var mediaPane = document.getElementById("mediaPane");
+
+    mediaPane.innerHTML = "";
+    $.get( url, { search: nameValue} )
+    .done(function( data ) {
+      if (!$.trim(data)){
+        alert("No results found");
+      }
+      else if (data==="ERROR"){
+        alert("Error");
+      }
+      else{
+        var obj = JSON.parse(data);
+        jQuery.each( obj, function( title, attributes ) {
+          var image = attributes.image;
+          var link = attributes.url;
+
+          var newDiv = document.createElement("div");
+          newDiv.className = "darkBG col-sm-2 mediaBox";
+
+          var imageLinkContainer = document.createElement("a");
+          var newImage = document.createElement("img");
+          // imageLinkContainer.href = link;
+          newImage.onclick = sendRequest;
+          newImage.className = "cover";
+          newImage.src = imageUrl+image;
+          newImage.width ="150";
+          newImage.height = "225";
+          imageLinkContainer.appendChild(newImage);
+          newDiv.appendChild(imageLinkContainer);
+
+          var textLinkContainer = document.createElement("a");
+          var newTitle = document.createElement("p")
+          var titleNode = document.createTextNode(title);
+          // textLinkContainer.href = link;
+          newTitle.onclick = sendRequest;
+
+          newTitle.appendChild(titleNode);
+          textLinkContainer.appendChild(newTitle);
+          newDiv.appendChild(textLinkContainer);
+
+          mediaPane.appendChild(newDiv);
+        });
+      }
+    });
+  }
+</script>
+
+<script>
+document.getElementById("search").addEventListener('keypress', function(e){
+  if (e.keyCode == 13) {
+    doFunction();
+  }
+});
+</script>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

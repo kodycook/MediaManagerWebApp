@@ -1,0 +1,55 @@
+/* global body padding */
+body {
+  padding-top:    20px;
+  padding-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+  body {
+    padding-top:    20px;
+    padding-bottom: 20px;
+  }
+}
+
+#searchBar {
+  padding: 0px 50px;
+}
+
+#mediaPane {
+  /*background-color:gray;*/
+  padding: 20px;
+}
+
+div {
+  padding: 5px;
+}
+
+p {
+  font-size: 0.8em;
+  text-align: center;
+  color: #021a40;
+  font-weight: bold;
+  padding: 5px;
+  height: 50px;
+}
+
+.mediaBox {
+    width: 160px;
+    word-wrap: normal;
+    padding: 5px;
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+.cover {
+  text-align: center;
+  border:1px solid #021a40
+}
+
+a:hover {
+ cursor:pointer;
+}
+
+p:hover {
+ text-decoration: underline;
+}
