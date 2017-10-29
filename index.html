@@ -35,11 +35,7 @@
 
 
 
-<script>
-function sendRequest(){
-  alert("Alert");
-}
-</script>
+
 
 <script language=javascript>
   function doFunction(){
@@ -71,7 +67,7 @@ function sendRequest(){
           var imageLinkContainer = document.createElement("a");
           var newImage = document.createElement("img");
           // imageLinkContainer.href = link;
-          newImage.onclick = sendRequest;
+          newImage.onclick = function() { sendRequest(link);};
           newImage.className = "cover";
           newImage.src = imageUrl+image;
           newImage.width ="150";
@@ -83,7 +79,7 @@ function sendRequest(){
           var newTitle = document.createElement("p")
           var titleNode = document.createTextNode(title);
           // textLinkContainer.href = link;
-          newTitle.onclick = sendRequest;
+          newTitle.onclick = function() { sendRequest(link);};
 
           newTitle.appendChild(titleNode);
           textLinkContainer.appendChild(newTitle);
@@ -94,6 +90,17 @@ function sendRequest(){
       }
     });
   }
+</script>
+
+
+<script>
+function sendRequest(link){
+  var postUrl = "http://10.1.1.15:9000/echoPost"; // Home
+  $.post( postUrl, { url: link} )
+    .done(function( data ) {
+    alert(data);
+  });
+}
 </script>
 
 <script>
