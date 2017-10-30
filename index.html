@@ -38,12 +38,21 @@
 
 
 <script language=javascript>
+  // var baseUrl = "http://192.168.1.5"; // Bec's House
+  var baseUrl = "http://10.1.1.15"; // Home
+  // var baseUrl = "http://192.168.43.252"; // Hotspot
+
+  document.getElementById("search").addEventListener('keypress', function(e){
+    if (e.keyCode == 13) {
+      doFunction();
+    }
+  });
+
+
   function doFunction(){
     var nameValue = document.getElementById("search").value;
-    // var url = "http://192.168.1.5:9001/echoGet"; // Bec's House
-    // var imageUrl = "http://192.168.1.5:9001/image/" // Bec's House
-    var url = "http://10.1.1.15:9001/echoGet"; // Home
-    var imageUrl = "http://10.1.1.15:9001/image/" // Home
+    var url = baseUrl + ":9001/echoGet";
+    var imageUrl = baseUrl + ":9001/image/"
     var mediaPane = document.getElementById("mediaPane");
 
     mediaPane.innerHTML = "";
@@ -90,25 +99,16 @@
       }
     });
   }
-</script>
 
 
-<script>
-function sendRequest(link){
-  var postUrl = "http://10.1.1.15:9000/echoPost"; // Home
-  $.post( postUrl, { url: link} )
-    .done(function( data ) {
-    alert(data);
-  });
-}
-</script>
-
-<script>
-document.getElementById("search").addEventListener('keypress', function(e){
-  if (e.keyCode == 13) {
-    doFunction();
+  function sendRequest(link){
+    $.post( baseUrl + ":9000/echoPost", { url: link} )
+      .done(function( data ) {
+      alert(data);
+    });
   }
-});
+
+
 </script>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
